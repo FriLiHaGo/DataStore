@@ -1,19 +1,16 @@
 ﻿using DataStoreDB.Models;
 using DataStoreDB.NHibernate.NHRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace WebDataStore.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            var documentRepository = new NHBaseRepository<Document>();
-            var userRepository = new NHBaseRepository<User>();
+            //var documentRepository = new NHBaseRepository<Document>();
+            //var userRepository = new NHBaseRepository<User>();
 
             //var document = new Document()
             //{
@@ -25,7 +22,7 @@ namespace WebDataStore.Controllers
 
             //documentRepository.Save(document);
 
-            documentRepository.Delete(1);
+            //documentRepository.Delete(1);
 
             return View();
         }

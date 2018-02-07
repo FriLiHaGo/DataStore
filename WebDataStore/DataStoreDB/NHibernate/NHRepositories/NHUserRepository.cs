@@ -1,12 +1,6 @@
 ﻿using DataStoreDB.Models;
 using DataStoreDB.Repositories;
 using NHibernate.Criterion;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DataStoreDB.NHibernate.NHRepositories
 {
     public class NHUserRepository : NHBaseRepository<User>, IUserRepository
