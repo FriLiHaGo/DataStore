@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataStoreDB.Models;
+using DataStoreDB.NHibernate.NHRepositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,21 @@ namespace WebDataStore.Controllers
     {
         public ActionResult Index()
         {
+            var documentRepository = new NHBaseRepository<Document>();
+            var userRepository = new NHBaseRepository<User>();
+
+            //var document = new Document()
+            //{
+            //    Name = "Артемист Фаул",
+            //    Author = userRepository.Get(1),
+            //    Date = DateTime.Now,
+            //    FileBin = new Byte[] { 1, 2 }
+            //};
+
+            //documentRepository.Save(document);
+
+            documentRepository.Delete(1);
+
             return View();
         }
 

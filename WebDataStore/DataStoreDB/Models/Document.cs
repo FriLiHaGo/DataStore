@@ -16,6 +16,6 @@ namespace DataStoreDB.Models
 
         public virtual User Author { get; set; }
 
-        public virtual byte[] File { get; set; }
+        public virtual Byte[] FileBin { get; set; }
     }
 }
