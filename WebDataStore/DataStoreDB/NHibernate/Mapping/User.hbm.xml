@@ -14,7 +14,7 @@
     <property name="Email" />
     <property name="Status" />
 
-    <many-to-one name="Role" class="Role" lazy="false"/>
+    <many-to-one name="Role" class="Role" column="Role" lazy="false"/>
   </class>
 
 </hibernate-mapping>

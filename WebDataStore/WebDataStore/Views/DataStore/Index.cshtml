@@ -1,0 +1,9 @@
+﻿@model IEnumerable<WebDataStore.Models.DocumentViewModel>
+
+@{
+    ViewBag.Title = "DataStore";
+}
+
+<h2>Хранилище документов</h2>
+
+@Html.Partial("DocumentView", Model)

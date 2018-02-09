@@ -10,7 +10,7 @@
     <property name="Name" />
     <property name="Date" />
     <many-to-one name="Author" class="User" column="Author" lazy="false"/>
-    <property name="FileBin" />
+    <property name="FilePath" />
   </class>
 
 </hibernate-mapping>
