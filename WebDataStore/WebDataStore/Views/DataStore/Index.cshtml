@@ -9,10 +9,18 @@
 @using (Html.BeginForm("Index", "DataStore", FormMethod.Get))
 {
     <div class="form-group">
-        @Html.TextBox("nameSearch")
-        <input type ="submit" value ="Поиск" i ="1"/>
+        @Html.TextBox(name: "search")
+        <input type="submit" value="Поиск" class="btn btn-default" />
     </div>
 }
 
-
-@Html.Partial("DocumentView", Model)
+@if (Model.Count() == 0)
+{
+    <div class="text-primary">
+        Хранилище еще никто не заполнил, вы можете быть первым
+    </div>
+}
+else
+{
+    @Html.Partial("DocumentView", Model)
+}

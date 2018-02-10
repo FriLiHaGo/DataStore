@@ -3,19 +3,13 @@
 <table class="table">
     <tr>
         <th>
-            @using (Html.BeginForm("SortByName", "DataStore", FormMethod.Post))
-            {
-                @Html.ActionLink("Название", "Index", "DataStore", new { sort = "name", nameSearch = Request.QueryString["nameSearch"] }, new { @class = "btn btn-default" })
-            }
-            @*@Html.DisplayNameFor(model => model.Name)*@
+            @Html.ActionLink("Название", "Index", new { sort = ViewBag.SortByName, search = Request.QueryString["search"] })
         </th>
         <th>
-            @Html.ActionLink("Автор", "Index", "DataStore", new { sort = "author", nameSearch = Request.QueryString["nameSearch"] }, new { @class = "btn btn-default" })
-            @*@Html.DisplayNameFor(model => model.Author)*@
+            @Html.ActionLink("Автор", "Index", new { sort = ViewBag.SortByAuthor, search = Request.QueryString["search"] })
         </th>
         <th>
-            @Html.ActionLink("Дата", "Index", "DataStore", new { sort = "date", nameSearch = Request.QueryString["nameSearch"] }, new { @class = "btn btn-default" })
-            @*@Html.DisplayNameFor(model => model.Date)*@
+            @Html.ActionLink("Дата", "Index", new { sort = ViewBag.SortByDate, search = Request.QueryString["search"] })
         </th>
         <th>
 

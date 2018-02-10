@@ -1,10 +1,7 @@
 ﻿using DataStoreDB.NHibernate.NHRepositories;
 using DataStoreDB.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebDataStore.Models;
 
@@ -27,25 +24,10 @@ namespace WebDataStore.Controllers
             UserRepository = new NHUserRepository();
         }
 
-        //[HttpGet]
-        //public ActionResult Index()
-        //{
-        //    var dbDocuments = DocumentRepository.GetAll();
-        //    var documents = dbDocuments.Select(o => new DocumentViewModel()
-        //    {
-        //        Id = o.Id,
-        //        Name = o.Name,
-        //        Author = o.Author,
-        //        Date = o.Date,
-        //        FilePath = o.FilePath
-        //    });
-        //    return View(documents);
-        //}
-
         [HttpGet]
-        public ActionResult Index(string nameSearch, string sort)
+        public ActionResult Index(string search, string sort)
         {
-            var dbDocuments = DocumentRepository.SearchByName(nameSearch);
+            var dbDocuments = DocumentRepository.SearchByName(search);
             var documents = dbDocuments.Select(o => new DocumentViewModel()
             {
                 Id = o.Id,
@@ -55,25 +37,25 @@ namespace WebDataStore.Controllers
                 FilePath = o.FilePath
             });
 
-            if (!string.IsNullOrWhiteSpace(sort))
+            ViewBag.SortByName = string.IsNullOrWhiteSpace(sort) ? "descending name" : "";
+            ViewBag.SortByAuthor = sort == "author" ? "descending author" : "author";
+            ViewBag.SortByDate = sort == "date" ? "descending date" : "date";
+
+            switch (sort)
             {
-                switch (sort)
-                {
-                    case "name":
-                        return View(
-                            documents.OrderBy(x => x.Name)
-                            );
-                    case "author":
-                        return View(
-                            documents.OrderBy(x => x.Author.Login)
-                            );
-                    case "date":
-                        return View(
-                            documents.OrderBy(x => x.Date)
-                            );
-                }
+                case "descending author":
+                    return View(documents.OrderByDescending(x => x.Author.Login));
+                case "author":
+                    return View(documents.OrderBy(x => x.Author.Login));
+                case "descending date":
+                    return View(documents.OrderByDescending(x => x.Date));
+                case "date":
+                    return View(documents.OrderBy(x => x.Date));
+                case "descending name":
+                    return View(documents.OrderByDescending(x => x.Name));
+                default:
+                    return View(documents.OrderBy(x => x.Name));
             }
-            return View(documents);
         }
 
         public ActionResult Open(long id)
@@ -85,11 +67,5 @@ namespace WebDataStore.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        //public ActionResult SortByName(IEnumerable<DocumentViewModel> modelForSort)
-        //{
-
-        //    return View();
-        //}
     }
 }

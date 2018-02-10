@@ -13,8 +13,19 @@ namespace WebDataStore.Models
         [HiddenInput(DisplayValue = false)]
         public long Id { get; set; }
 
+        private string name;
+
         [Display(Name = "Название")]
-        public string Name { get; set; }
+        public string Name {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value.Length <= 30 ? value : (value.Substring(0, 30) + "...");
+            }
+        }
 
         [Display(Name = "Автор")]
         public User Author { get; set; }
