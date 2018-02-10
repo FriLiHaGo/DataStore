@@ -2,6 +2,7 @@
 using DataStoreDB.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace WebDataStore.Controllers
     {
         #region Protected Members
 
-        protected IDocumentRepository DocumentRepository { get; set; } 
+        protected IDocumentRepository DocumentRepository { get; set; }
 
         protected IUserRepository UserRepository { get; set; }
 
@@ -26,10 +27,25 @@ namespace WebDataStore.Controllers
             UserRepository = new NHUserRepository();
         }
 
+        //[HttpGet]
+        //public ActionResult Index()
+        //{
+        //    var dbDocuments = DocumentRepository.GetAll();
+        //    var documents = dbDocuments.Select(o => new DocumentViewModel()
+        //    {
+        //        Id = o.Id,
+        //        Name = o.Name,
+        //        Author = o.Author,
+        //        Date = o.Date,
+        //        FilePath = o.FilePath
+        //    });
+        //    return View(documents);
+        //}
+
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string nameSearch, string sort)
         {
-            var dbDocuments = DocumentRepository.GetAll();
+            var dbDocuments = DocumentRepository.SearchByName(nameSearch);
             var documents = dbDocuments.Select(o => new DocumentViewModel()
             {
                 Id = o.Id,
@@ -38,24 +54,42 @@ namespace WebDataStore.Controllers
                 Date = o.Date,
                 FilePath = o.FilePath
             });
+
+            if (!string.IsNullOrWhiteSpace(sort))
+            {
+                switch (sort)
+                {
+                    case "name":
+                        return View(
+                            documents.OrderBy(x => x.Name)
+                            );
+                    case "author":
+                        return View(
+                            documents.OrderBy(x => x.Author.Login)
+                            );
+                    case "date":
+                        return View(
+                            documents.OrderBy(x => x.Date)
+                            );
+                }
+            }
             return View(documents);
         }
 
-        [HttpPost]
-        public ActionResult Index(string name)
+        public ActionResult Open(long id)
         {
-            return View();
+            var document = DocumentRepository.Get(id);
+            if (System.IO.File.Exists(document.FilePath))
+            {
+                Process.Start(document.FilePath);
+            }
+            return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult Open(string path)
-        {
-            return View();
-        }
+        //public ActionResult SortByName(IEnumerable<DocumentViewModel> modelForSort)
+        //{
 
-        public ActionResult SortByName(string name)
-        {
-            return View();
-        }
+        //    return View();
+        //}
     }
 }

@@ -41,7 +41,7 @@ namespace WebDataStore.Controllers
             {
                 // аутентификация
                 FormsAuthentication.SetAuthCookie(loginModel.Login, true);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "DataStore");
             }
             return View();
         }

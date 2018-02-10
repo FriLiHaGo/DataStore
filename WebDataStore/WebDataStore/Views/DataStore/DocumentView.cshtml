@@ -3,34 +3,41 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @using (Html.BeginForm("SortByName", "DataStore", FormMethod.Post))
+            {
+                @Html.ActionLink("Название", "Index", "DataStore", new { sort = "name", nameSearch = Request.QueryString["nameSearch"] }, new { @class = "btn btn-default" })
+            }
+            @*@Html.DisplayNameFor(model => model.Name)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.ActionLink("Автор", "Index", "DataStore", new { sort = "author", nameSearch = Request.QueryString["nameSearch"] }, new { @class = "btn btn-default" })
+            @*@Html.DisplayNameFor(model => model.Author)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.ActionLink("Дата", "Index", "DataStore", new { sort = "date", nameSearch = Request.QueryString["nameSearch"] }, new { @class = "btn btn-default" })
+            @*@Html.DisplayNameFor(model => model.Date)*@
         </th>
         <th>
 
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.Login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink("Открыть", "Open", "DataStore", item.FilePath, new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Открыть", "Open", "DataStore", new { id = item.Id }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
 
 </table>

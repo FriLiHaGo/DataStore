@@ -6,4 +6,13 @@
 
 <h2>Хранилище документов</h2>
 
+@using (Html.BeginForm("Index", "DataStore", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.TextBox("nameSearch")
+        <input type ="submit" value ="Поиск" i ="1"/>
+    </div>
+}
+
+
 @Html.Partial("DocumentView", Model)
