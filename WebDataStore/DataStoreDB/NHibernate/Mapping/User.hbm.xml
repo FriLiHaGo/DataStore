@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="DataStoreDB"
+                   namespace="DataStoreDB.Models">
+
+  <class name="User" table="[User]">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="Name" />
+    <property name="Sername" />
+    <property name="Login" />
+    <property name="Password" />
+    <property name="Email" />
+    <property name="Status" />
+
+    <many-to-one name="Role" class="Role" column="Role" lazy="false"/>
+  </class>
+
+</hibernate-mapping>

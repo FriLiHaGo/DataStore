@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebDataStore.Models.DocumentViewModel>
+
+@{
+    ViewBag.Title = "DataStore";
+}
+
+<h2>Хранилище документов</h2>
+
+@using (Html.BeginForm("Index", "DataStore", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.TextBox(name: "search")
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+}
+
+@if (Model.Count() == 0)
+{
+    <div class="text-primary">
+        Хранилище еще никто не заполнил, вы можете быть первым
+    </div>
+}
+else
+{
+    @Html.Partial("DocumentView", Model)
+}

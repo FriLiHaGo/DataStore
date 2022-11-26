@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebDataStore.Models.DocumentViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Название", "Index", new { sort = ViewBag.SortByName, search = Request.QueryString["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Автор", "Index", new { sort = ViewBag.SortByAuthor, search = Request.QueryString["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Дата", "Index", new { sort = ViewBag.SortByDate, search = Request.QueryString["search"] })
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Открыть", "Open", "DataStore", new { id = item.Id }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+
+</table>
